@@ -24,7 +24,7 @@
     	</jwsc>	
 	</target>
 	<target name="deploy">
-		<wldeploy action="deploy" name="demo.sp.jws.ear" source="${ear-dir}" user="${wls.username}" password="${wls.password}" verbose="true" adminurl="t3://${wls.hostname}:${wls.port}" targets="${wls.server.name}" />
+		<wldeploy action="deploy" name="demo.sp.jws.ear" source="${ear-dir}" user="${wls.username}" password="${wls.password}" verbose="true" adminurl="t3://${wls.hostname}:${wls.port}" targets="${wls.server.name}" upload="true"/>
 	</target>
 	<target name="undeploy">
 		<wldeploy action="undeploy" name="${ear.deployed.name}" failonerror="false" user="${wls.username}" password="${wls.password}" verbose="true" adminurl="t3://${wls.hostname}:${wls.port}" targets="${wls.server.name}" />
