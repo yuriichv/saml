@@ -1,0 +1,32 @@
+<project name="demo.sp.jws" default="all">
+	<property name="wls.username" value="admin" />
+	<property name="wls.password" value="Oracle33" />
+	<!--<property name="wls.hostname" value="localhost" />-->
+	<property name="wls.hostname" value="192.168.100.2" />
+	<property name="wls.port" value="7001" />
+	<property name="wls.server.name" value="AdminServer" />
+	<property name="wls.server.port" value="7002" />
+	<property name="ear-dir" value="output/demo.sp.jws.ear" />
+	<property name="ear.deployed.name" value="demo.sp.jws.ear" />
+
+
+ 	<target name="all" depends="clean,build-service,deploy" />
+	<target name="clean" depends="undeploy">
+   		<delete dir="output" />
+	</target>
+
+	<taskdef name="jwsc" classname="weblogic.wsee.tools.anttasks.JwscTask" /> 
+	<taskdef name="wldeploy" classname="weblogic.ant.taskdefs.management.WLDeploy"/>
+	
+	<target name="build-service">
+		<jwsc srcdir="src" destdir="${ear-dir}">
+      		<jws file="webservices/demosp/WS1Impl.java"  />
+    	</jwsc>	
+	</target>
+	<target name="deploy">
+		<wldeploy action="deploy" name="demo.sp.jws.ear" source="${ear-dir}" user="${wls.username}" password="${wls.password}" verbose="true" adminurl="t3://${wls.hostname}:${wls.port}" targets="${wls.server.name}" />
+	</target>
+	<target name="undeploy">
+		<wldeploy action="undeploy" name="${ear.deployed.name}" failonerror="false" user="${wls.username}" password="${wls.password}" verbose="true" adminurl="t3://${wls.hostname}:${wls.port}" targets="${wls.server.name}" />
+	</target>
+</project>
